@@ -20,6 +20,32 @@
   
       .option {
         padding: 10px 15px;
+
+        &.user-exists {
+          display:flex;
+          flex-direction: row;
+          border: 1px solid black;
+
+          span {
+            margin-top: 10px;
+            margin-left: 10px;
+          }
+
+          button {
+            all:unset;
+
+          }
+        }
+
+        .user-avatar{
+          // padding: 10px;
+          width:40px;
+          border:1px solid transparent;
+          border-radius: 200px;
+          margin-left: -10px;
+          background-position: center;
+          background-size: contain;
+        }
       }
     }
   }
