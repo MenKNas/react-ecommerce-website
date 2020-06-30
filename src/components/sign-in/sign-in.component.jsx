@@ -2,7 +2,8 @@ import React from 'react';
 import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { signInWithGoogle } from '../../firebase/firebase.utils.js';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils.js';
+import { withRouter } from 'react-router-dom';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -15,10 +16,19 @@ class SignIn extends React.Component {
   
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('handle submit !')
-        this.setState({email:'', password: ''});
+
+        const { email, password } = this.state;
+
+        try {
+           await auth.signInWithEmailAndPassword(email, password);
+           this.setState({email:'', password:''});
+           this.props.history.push('/');
+        } catch (err) {
+            console.log(err);
+        }
+
     }
 
     handleChange = (e) => {
@@ -31,11 +41,6 @@ class SignIn extends React.Component {
         // e.preventDefault()
         console.log('over ride !')
         signInWithGoogle();
-    }
-
-    handleClick = (e) => {
-        // e.stopPropagation();
-        console.log('clicked !')
     }
 
     render() {
@@ -57,4 +62,4 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+export default withRouter(SignIn);

@@ -44,6 +44,8 @@ const firebaseConfig = {
       }
 
     }
+
+    return userRef;
   }
 
   //initialize firebase with the above config
@@ -51,7 +53,6 @@ const firebaseConfig = {
 
   //in case we want to use google analytics with firebase
   firebase.analytics();
-
 
   export const auth = firebase.auth();
   export const firestore = firebase.firestore();

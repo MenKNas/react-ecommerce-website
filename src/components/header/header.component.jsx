@@ -15,7 +15,7 @@ const Header = ({currentUser}) => (
             {
               currentUser ? 
               <div className="option user-exists"> 
-                <img className="user-avatar" alt="user profile" src={currentUser.photoURL} /> 
+              {currentUser.photoURL ?  <img className="user-avatar" alt="user profile" src={currentUser.photoURL} /> : null}
                 <span> {currentUser.displayName} </span>
                 <Link className="option" onClick={ () => auth.signOut()}> SIGN OUT </Link>
               </div> 
