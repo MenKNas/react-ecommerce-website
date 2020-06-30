@@ -16,6 +16,36 @@ const firebaseConfig = {
   measurementId: "G-7N49Z88ZL9"
 };
 
+//check if user exists in Firestore database -- if not, then create the user and store them
+  export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+    const snapShot = await userRef.get()
+
+    console.log(snapShot);
+
+    //if user doesn't exist, create them
+    if(!snapShot.exists) {
+      const { displayName, email ,photoURL } = userAuth;
+      const createdAt = new Date();
+
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          photoURL,
+          createdAt,
+          ...additionalData
+        })
+      } catch (error) {
+        console.log('error creating user ', error.message);
+      }
+
+    }
+  }
+
   //initialize firebase with the above config
   firebase.initializeApp(firebaseConfig);
 
